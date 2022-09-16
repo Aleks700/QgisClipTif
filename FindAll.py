@@ -14,7 +14,9 @@ matchup = find_all(name,pathToFind)
 # print(matchup[1],'\n')
 # print(matchup[2],'\n')
 # print(matchup[3],'\n')
-for x in matchup:
+sortio = matchup.sort()
+for x in sorted(matchup):
     print(x,'\n')
+
 
 print( len(matchup))

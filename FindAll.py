@@ -23,13 +23,14 @@ print( len(matchup))
 
 
 
-image_location = os.path.join(QgsProject.instance().homePath(), "render.png")
+# image_location = os.path.join(QgsProject.instance().homePath(), "render.png")
+image_location = os.path.join('E:\Для снимков\pan', "render.jpg")
 
 vlayer = iface.activeLayer()
 settings = QgsMapSettings()
 settings.setLayers([vlayer])
 settings.setBackgroundColor(QColor(255, 255, 255))
-settings.setOutputSize(QSize(800, 600))
+settings.setOutputSize(QSize(20000, 20000))
 settings.setExtent(vlayer.extent())
 
 render = QgsMapRendererParallelJob(settings)
@@ -37,7 +38,7 @@ render = QgsMapRendererParallelJob(settings)
 def finished():
     img = render.renderedImage()
     # save the image; e.g. img.save("/Users/myuser/render.png","png")
-    img.save(image_location, "png")
+    img.save(image_location, "jpg")
 
 render.finished.connect(finished)
 
@@ -50,3 +51,8 @@ from qgis.PyQt.QtCore import QEventLoop
 loop = QEventLoop()
 render.finished.connect(loop.quit)
 loop.exec_()
+
+
+
+#from shutil import rmtree
+# rmtree(r"C:\Users\A.Agadilov\AppData\Local\QGIS\QGIS3\cache", ignore_errors=True) path to cache

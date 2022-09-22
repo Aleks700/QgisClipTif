@@ -1,4 +1,4 @@
-image_location = os.path.join('E:\Для снимков\pan', "render.jpg")
+
 
 #vlayer = iface.activeLayer()
 def finished(path_to_current_img):
@@ -7,9 +7,9 @@ def finished(path_to_current_img):
     img.save(path_to_current_img, "jpg")
 massToPath=['E:\Для снимков\Kurily\HR_2207110357081\DZZ-HR_20220511010214_000039_E149N45_2A_PAN_HR_2207110357081\DZZ-HR_20220511010214_000039_E149N45_2A_PAN_HR_2207110357081/IMAGERY.tif','E:\Для снимков\Kurily\HR_2207110357081\DZZ-HR_20220511010214_000039_E149N45_2A_PAN_HR_2207110357081\DZZ-HR_20220511010214_000039_E149N45_2A_PAN_HR_2207110357081/IMAGERY.tif']
 # path_to_tif=r'E:\Для снимков\Kurily\HR_2207110357081\DZZ-HR_20220511010214_000039_E149N45_2A_PAN_HR_2207110357081\DZZ-HR_20220511010214_000039_E149N45_2A_PAN_HR_2207110357081/IMAGERY.tif'
+
+# lok.partition('imagert.tif')
 for x in massToPath:
-
-
     vlayer = QgsRasterLayer(x, "SRTM layer name")
     settings = QgsMapSettings()
     settings.setLayers([vlayer])
@@ -18,8 +18,9 @@ for x in massToPath:
     settings.setExtent(vlayer.extent())
 
     render = QgsMapRendererParallelJob(settings)
-
-    render.finished.connect(finished(x))
+    image_path = x.partition('IMAGERY.tif')[0]
+    image_location = os.path.join(image_path, "render.jpg")
+    render.finished.connect(finished(image_location))
 
     # Start the rendering
     render.start()
